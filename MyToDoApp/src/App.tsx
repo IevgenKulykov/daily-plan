@@ -77,16 +77,9 @@ const App: React.FC = () => {
     }
   };
 
-  const handleKeyPress = (e: { key: string; }) => {
-    if (e.key === 'Enter') {
-      addTask();
-    }
-  };
-
-
   return (
     <div className="App">
-      <h3>Available Rewards:</h3>
+      <h3>Available Rewa1rds:</h3>
       <ul className="rewards">
         {rewards.map((reward) => (
           <li key={reward.name}>
@@ -108,7 +101,6 @@ const App: React.FC = () => {
         type="text"
         value={newTask}
         onChange={(e) => setNewTask(e.target.value)}
-        onKeyDown={handleKeyPress}
         placeholder="Enter new task"
       />
       <input
