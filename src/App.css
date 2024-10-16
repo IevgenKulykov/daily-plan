@@ -1,4 +1,9 @@
-.App {
+.main {
+  margin: 10px auto;
+}
+
+
+.section {
   max-width: 375px;
   margin: 50px auto;
   border: 2px solid #ddd;
@@ -62,8 +67,8 @@ li {
   padding: 5px 10px;
   border-radius: 5px;
   cursor: pointer;
-  width: auto; /* Автоматична ширина, що підлаштовується під текст */
-  min-width: unset; /* Вимикаємо мінімальну ширину, якщо була */
+  width: auto;
+  min-width: unset;
 }
 
 .complete-btn:hover {
@@ -74,12 +79,12 @@ li {
   background-color: #007bff;
   color: white;
   border: none;
-  padding: 5px 10px; /* Трохи менші відступи */
+  padding: 5px 10px;
   border-radius: 5px;
   font-size: 14px;
   cursor: pointer;
-  width: auto; /* Автоматична ширина, що підлаштовується під текст */
-  min-width: unset; /* Вимикаємо мінімальну ширину, якщо була */
+  width: auto;
+  min-width: unset;
   transition: background-color 0.3s ease;
 }
 
@@ -92,7 +97,7 @@ li {
   background-color: #0056b3;
 }
 
-/* Added styles for when the button is enabled */
+
 .reward-btn:enabled {
   background-color: #007bff; /* Original background color */
 }
