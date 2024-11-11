@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import DotNavigation from "./components/DotNavigation";
 
@@ -31,6 +31,39 @@ const App: React.FC = () => {
   const [newRewardName, setNewRewardName] = useState<string>("");
   const [newRewardPoints, setNewRewardPoints] = useState<number>(5);
 
+  useEffect(() => {
+    const storedTasks = localStorage.getItem("tasks");
+    const storedRewards = localStorage.getItem("rewards");
+    const storedPoints = localStorage.getItem("totalPoints");
+    const storedRedeemedRewards = localStorage.getItem("redeemedRewards");
+
+    if (storedTasks) {
+      setTasks(JSON.parse(storedTasks));
+    }
+
+    if (storedRewards) {
+      setRewards(JSON.parse(storedRewards));
+    } else {
+      setRewards(initialRewards);
+    }
+
+    if (storedPoints) {
+      setTotalPoints(Number(storedPoints));
+    }
+
+    if (storedRedeemedRewards) {
+      setRedeemedRewards(JSON.parse(storedRedeemedRewards));
+    }
+
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    localStorage.setItem("rewards", JSON.stringify(rewards));
+    localStorage.setItem("totalPoints", totalPoints.toString());
+    localStorage.setItem("redeemedRewards", JSON.stringify(redeemedRewards));
+  }, [tasks, rewards, totalPoints, redeemedRewards]);
+
   const addTask = () => {
     if (newTask.trim() !== "" && taskPoints > 0) {
       const task: Task = {
@@ -61,7 +94,7 @@ const App: React.FC = () => {
       setTotalPoints(totalPoints - reward.pointsRequired);
       setRedeemedRewards([...redeemedRewards, reward.name]);
     } else {
-      alert("No1t enough points to redeem this reward!");
+      alert("Not enough points to redeem this reward!");
     }
   };
 
@@ -82,7 +115,7 @@ const App: React.FC = () => {
       action();
     }
   };
-  
+
   return (
     <div className="App" style={{ display: "flex" }}>
       <div className="main">
