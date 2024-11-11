@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./App.css";
-import DotNavigation from "./DotNavigation";
+import DotNavigation from "./components/DotNavigation";
 
 interface Task {
   id: number;

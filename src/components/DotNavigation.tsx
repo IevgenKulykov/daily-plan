@@ -29,6 +29,7 @@ const DotNavigation: React.FC<DotNavigationProps> = ({ children }) => {
               borderRadius: "50%",
               cursor: "pointer",
             }}
+            data-testid={`dot-${index}`}
           />
         ))}
       </div>
