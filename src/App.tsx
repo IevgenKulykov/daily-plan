@@ -15,21 +15,21 @@ interface Reward {
 }
 
 const initialRewards: Reward[] = [
-  { name: "Coffee", pointsRequired: 50 },
-  { name: "Cake", pointsRequired: 100 },
-  { name: "Movie Ticket", pointsRequired: 150 },
+  { name: "Coffee", pointsRequired: 10 },
+  { name: "Cake", pointsRequired: 25 },
+  { name: "Movie Ticket", pointsRequired: 100 },
 ];
 
 const App: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [newTask, setNewTask] = useState<string>("");
-  const [taskPoints, setTaskPoints] = useState<number>(10);
+  const [taskPoints, setTaskPoints] = useState<number>(1);
   const [totalPoints, setTotalPoints] = useState<number>(0);
   const [redeemedRewards, setRedeemedRewards] = useState<string[]>([]);
 
   const [rewards, setRewards] = useState<Reward[]>(initialRewards);
   const [newRewardName, setNewRewardName] = useState<string>("");
-  const [newRewardPoints, setNewRewardPoints] = useState<number>(5);
+  const [newRewardPoints, setNewRewardPoints] = useState<number>(1);
 
   useEffect(() => {
     const storedTasks = localStorage.getItem("tasks");
@@ -54,7 +54,6 @@ const App: React.FC = () => {
     if (storedRedeemedRewards) {
       setRedeemedRewards(JSON.parse(storedRedeemedRewards));
     }
-
   }, []);
 
   useEffect(() => {
@@ -74,7 +73,7 @@ const App: React.FC = () => {
       };
       setTasks([...tasks, task]);
       setNewTask("");
-      setTaskPoints(10);
+      setTaskPoints(1);
     }
   };
 
@@ -86,6 +85,11 @@ const App: React.FC = () => {
       }
       return task;
     });
+    setTasks(updatedTasks);
+  };
+
+  const removeTask = (id: number) => {
+    const updatedTasks = tasks.filter((task) => task.id !== id);
     setTasks(updatedTasks);
   };
 
@@ -106,8 +110,13 @@ const App: React.FC = () => {
       };
       setRewards([...rewards, newReward]);
       setNewRewardName("");
-      setNewRewardPoints(5);
+      setNewRewardPoints(1);
     }
+  };
+
+  const removeReward = (name: string) => {
+    const updatedRewards = rewards.filter((reward) => reward.name !== name);
+    setRewards(updatedRewards);
   };
 
   const handleKeyPress = (e: { key: string }, action: () => void) => {
@@ -121,33 +130,47 @@ const App: React.FC = () => {
       <div className="main">
         <DotNavigation>
           <div className="section">
-            <h3>Available Rewards:</h3>
+            <h3>Your rewards:</h3>
             <input
               type="text"
               value={newRewardName}
               onChange={(e) => setNewRewardName(e.target.value)}
-              placeholder="Add New Reward"
+              placeholder="New reward"
               onKeyDown={(e) => handleKeyPress(e, addReward)}
             />
-            <input
-              type="number"
+            <select
               value={newRewardPoints}
               onChange={(e) => setNewRewardPoints(Number(e.target.value))}
-              placeholder="Points Required"
-              min="1"
-            />
+            >
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select>
+
             <button onClick={addReward}>Add Reward</button>
             <ul className="rewards">
               {rewards.map((reward) => (
                 <li key={reward.name}>
                   {reward.name} - {reward.pointsRequired} points
-                  <button
-                    className="reward-btn"
-                    onClick={() => redeemReward(reward)}
-                    disabled={totalPoints < reward.pointsRequired}
-                  >
-                    Redeem
-                  </button>
+                  <div className="button-container">
+                    <button
+                      className="reward-btn"
+                      onClick={() => redeemReward(reward)}
+                      disabled={totalPoints < reward.pointsRequired}
+                    >
+                      Redeem
+                    </button>
+                    <button
+                      className="complete-btn remove-btn"
+                      onClick={() => removeReward(reward.name)}
+                    >
+                      x
+                    </button>
+                  </div>
                 </li>
               ))}
             </ul>
@@ -160,15 +183,20 @@ const App: React.FC = () => {
               value={newTask}
               onChange={(e) => setNewTask(e.target.value)}
               onKeyDown={(e) => handleKeyPress(e, addTask)}
-              placeholder="Enter new task"
+              placeholder="New task"
             />
-            <input
-              type="number"
+            <select
               value={taskPoints}
               onChange={(e) => setTaskPoints(Number(e.target.value))}
-              placeholder="Points for task"
-              min="1"
-            />
+            >
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select>
             <button onClick={addTask}>Add Task</button>
             <h2>Total Points: {totalPoints}</h2>
 
@@ -178,16 +206,29 @@ const App: React.FC = () => {
                   key={task.id}
                   style={{
                     textDecoration: task.completed ? "line-through" : "none",
+                    display: "flex", 
+                    justifyContent: "space-between",
+                    alignItems: "center",
                   }}
                 >
-                  {task.title} - {task.points} points
+                  <span>
+                    {task.title} - {task.points} points
+                  </span>
                   {!task.completed && (
-                    <button
-                      className="complete-btn"
-                      onClick={() => completeTask(task.id)}
-                    >
-                      Complete
-                    </button>
+                    <div className="button-container">
+                      <button
+                        className="task-btn remove-btn"
+                        onClick={() => completeTask(task.id)}
+                      >
+                        ✓ {/* Unicode checkmark */}
+                      </button>
+                      <button
+                        className="complete-btn remove-btn"
+                        onClick={() => removeTask(task.id)}
+                      >
+                        x
+                      </button>
+                    </div>
                   )}
                 </li>
               ))}
@@ -198,7 +239,7 @@ const App: React.FC = () => {
             <ul>
               {redeemedRewards.length > 0 ? (
                 redeemedRewards.map((reward, index) => (
-                  <li key={index}>{reward}</li>
+                  <li key={index}>🏆 - {reward} </li>
                 ))
               ) : (
                 <li>No rewards redeemed yet</li>

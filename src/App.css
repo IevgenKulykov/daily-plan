@@ -2,7 +2,6 @@
   margin: 10px auto;
 }
 
-
 .section {
   max-width: 375px;
   margin: 50px auto;
@@ -99,7 +98,7 @@ li {
 
 
 .reward-btn:enabled {
-  background-color: #007bff; /* Original background color */
+  background-color: #007bff;
 }
 
 h2 {
@@ -113,4 +112,64 @@ ul.rewards {
   border: 1px solid #ddd;
   border-radius: 5px;
   margin-bottom: 20px;
+}
+
+select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  background-color: white;
+  color: #333;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23999"><path d="M7 10l5 5 5-5H7z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+  cursor: pointer;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+select:hover {
+  border-color: #aaa;
+}
+
+select:focus {
+  outline: none;
+  border-color: #4caf50;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+}
+
+.remove-btn {
+  background-color: #f44336;
+}
+
+.remove-btn:hover {
+  background-color: #e53935;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.task-btn {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  width: auto;
+  min-width: unset;
+  transition: background-color 0.3s ease;
+}
+
+.task-btn:hover {
+  background-color: #45a049;
 }
