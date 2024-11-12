@@ -2,16 +2,17 @@ import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import App from '../../App';
 
-test('renders "Available Rewards", "Coffee - 50 points", "Movie Ticket - 150 points" texts', () => {
+
+test('renders "Your rewards", "Coffee - 10 points", "Movie Ticket - 100 points" texts', () => {
   render(<App />);
   
-  const rewardsText = screen.getByText(/Available Rewards/i);
+  const rewardsText = screen.getByText(/Your rewards/i);
   expect(rewardsText).toBeInTheDocument();
   
-  const coffeeText = screen.getByText(/Coffee - 50 points/i);
+  const coffeeText = screen.getByText(/Coffee - 10 points/i);
   expect(coffeeText).toBeInTheDocument();
   
-  const movieText = screen.getByText(/Movie Ticket - 150 points/i);
+  const movieText = screen.getByText(/Movie Ticket - 100 points/i);
   expect(movieText).toBeInTheDocument();
 });
 
@@ -31,14 +32,14 @@ test('renders all disabled "Redeem" buttons', () => {
 
 test('renders "New reward" textfield is empty by default', () => {
   render(<App />);
-  const newRewardInput = screen.getByPlaceholderText(/Add New Reward/i);
+  const newRewardInput = screen.getByPlaceholderText(/New reward/i);
   expect(newRewardInput).toHaveValue('');
 });
 
-test('renders "Points Required" field has 5 value by default', () => {
+test('renders "Points Required" field has 1 value by default', () => {
   render(<App />);
-  const pointsRequiredInput = screen.getByPlaceholderText(/Points Required/i);
-  expect(pointsRequiredInput).toHaveValue(5);
+  const pointsRequiredInput = screen.getByTestId('reward-points-select');
+    expect(pointsRequiredInput).toHaveValue('1');
 });
 
 test('renders "Daily plan", "Total Points" text, "Add Task" button', () => {
@@ -58,28 +59,13 @@ test('renders "Daily plan", "Total Points" text, "Add Task" button', () => {
 
 test('adds a new reward when the "Add reward" button is clicked', () => {
   render(<App />);
-  const inputElement = screen.getByPlaceholderText(/Add New Reward/i);
-  fireEvent.change(inputElement, { target: { value: 'Free Coffee' } });
+  const inputElement = screen.getByPlaceholderText(/New reward/i);
+  fireEvent.change(inputElement, { target: { value: 'Tea' } });
 
   const addButton = screen.getByRole('button', { name: /Add Reward/i });
   fireEvent.click(addButton);
 
-  const newReward = screen.getByText('Free Coffee - 5 points');
+  const newReward = screen.getByText('Tea - 1 points');
   expect(newReward).toBeVisible();
 });
 
-test('should not accept values less than 1', () => {
-  render(<App />);
-  const inputElement = screen.getByPlaceholderText('Points Required') as HTMLInputElement;;
-
-  // Try entering a value less than 1
-  fireEvent.change(inputElement, { target: { value: '0' } });
-  expect(inputElement.value).toBe('0'); // Should not accept 0
-
-  fireEvent.change(inputElement, { target: { value: '-5' } });
-  expect(inputElement.value).toBe('-5'); // Should not accept negative numbers
-
-  // Try entering a valid value
-  fireEvent.change(inputElement, { target: { value: '3' } });
-  expect(inputElement.value).toBe('3'); // Should accept 3
-});
