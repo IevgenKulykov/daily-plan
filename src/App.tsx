@@ -141,6 +141,7 @@ const App: React.FC = () => {
             <select
               value={newRewardPoints}
               onChange={(e) => setNewRewardPoints(Number(e.target.value))}
+              data-testid="reward-points-select"
             >
               <option value="1">1</option>
               <option value="2">2</option>
