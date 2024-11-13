@@ -14,5 +14,7 @@
     "redeemedRewards": "Redeemed Rewards",
     "points": "points",
     "english": "English",
-    "ukrainian": "Ukrainian"
+    "ukrainian": "Ukrainian",
+    "removeCompletedTasksButton": "Remove ✓ tasks",
+    "removeRedeemedRewardsButton": "Remove 🏆rewards"
   }

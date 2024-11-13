@@ -13,6 +13,8 @@
     "redeemedRewards": "Отримані нагороди",
     "points": "балів",
     "english": "Англійська",
-    "ukrainian": "Українська"
+    "ukrainian": "Українська",
+    "removeCompletedTasksButton": "Видалити ✓ задачі",
+    "removeRedeemedRewardsButton": "Видалити 🏆нагороди"
   }
   

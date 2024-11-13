@@ -165,10 +165,12 @@ select:focus {
 .task-btn:hover {
   background-color: #45a049;
 }
-.lang-btn-container {
+
+.settings-btn-container {
   display: flex;
   justify-content: center;
   gap: 15px;
+  margin-bottom: 20px;
 }
 
 .lang-btn {
@@ -184,12 +186,27 @@ select:focus {
 
 .lang-btn:hover {
   background-color: rgba(0, 123, 255, 0.8);
-  transform: scale(1.05);
 }
 
 .lang-btn:focus {
   outline: none;
 }
 
+.cleanup-btn {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
 
+.cleanup-btn:hover {
+  background-color: #e53935;
+}
 
+.cleanup-btn:focus {
+  outline: none;
+}

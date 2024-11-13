@@ -9,7 +9,7 @@ const LanguageSwitch: React.FC<LanguageSwitchProps> = ({ switchLanguage }) => {
   const { t } = useTranslation();
 
   return (
-    <div className="lang-btn-container">
+    <div className="settings-btn-container">
       <button className="lang-btn" onClick={() => switchLanguage('en')}>
         {t('english')}
       </button>

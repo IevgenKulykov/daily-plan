@@ -5,6 +5,7 @@ import Select from "./components/Select";
 import { useTranslation } from 'react-i18next';
 import i18n from './i18n';
 import LanguageSwitch from './components/LanguageSwitch'; 
+import ListCleanup from "./components/ListCleanup";
 
 
 interface Task {
@@ -144,6 +145,15 @@ const App: React.FC = () => {
     }
   };
 
+  const removeCompletedTasks = () => {
+    const updatedTasks = tasks.filter((task) => !task.completed);
+    setTasks(updatedTasks);
+  };
+
+  const removeRedeemedRewards = () => {
+    setRedeemedRewards([]);
+  };
+
   return (
     <div className="App" style={{ display: "flex" }}>
       <div className="main">
@@ -259,6 +269,7 @@ const App: React.FC = () => {
           </div>  
           <div className="section">
             <LanguageSwitch switchLanguage={switchLanguage} />
+            <ListCleanup removeCompletedTasks={removeCompletedTasks} removeRedeemedRewards={removeRedeemedRewards} />
           </div>
         </DotNavigation>
       </div>
