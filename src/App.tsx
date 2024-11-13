@@ -152,7 +152,11 @@ const App: React.FC = () => {
             <ul className="rewards">
               {rewards.map((reward) => (
                 <li key={reward.name}>
-                  {reward.name} - {reward.pointsRequired} points
+                  <span>
+                  <div>{reward.name}</div>
+                  <br />
+                  <small>{reward.pointsRequired} points</small>
+                  </span>
                   <div className="button-container">
                     <button
                       className="reward-btn"
@@ -202,7 +206,9 @@ const App: React.FC = () => {
                   }}
                 >
                   <span>
-                    {task.title} - {task.points} points
+                    {task.title}
+                    <br />
+                    <small>{task.points} points</small>
                   </span>
                   {!task.completed && (
                     <div className="button-container">
@@ -210,7 +216,7 @@ const App: React.FC = () => {
                         className="task-btn remove-btn"
                         onClick={() => completeTask(task.id)}
                       >
-                        ✓ {/* Unicode checkmark */}
+                        ✓
                       </button>
                       <button
                         className="complete-btn remove-btn"
