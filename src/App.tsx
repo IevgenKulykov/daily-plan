@@ -165,7 +165,7 @@ const App: React.FC = () => {
                       className="complete-btn remove-btn"
                       onClick={() => removeReward(reward.name)}
                     >
-                      x
+                      &times;
                     </button>
                   </div>
                 </li>
