@@ -88,7 +88,9 @@ const App: React.FC = () => {
       }
       return task;
     });
-    setTasks(updatedTasks);
+    const sortedTasks = updatedTasks.sort((a, b) => (a.completed === b.completed ? 0 : a.completed ? 1 : -1));
+
+    setTasks(sortedTasks);
   };
 
   const removeTask = (id: number) => {
@@ -149,12 +151,11 @@ const App: React.FC = () => {
             />
 
             <button onClick={addReward}>Add Reward</button>
-            <ul className="rewards">
+            <ul>
               {rewards.map((reward) => (
                 <li key={reward.name}>
                   <span>
                   <div>{reward.name}</div>
-                  <br />
                   <small>{reward.pointsRequired} points</small>
                   </span>
                   <div className="button-container">
