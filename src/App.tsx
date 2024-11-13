@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import DotNavigation from "./components/DotNavigation";
 import Select from "./components/Select";
+import { useTranslation } from 'react-i18next';
+import i18n from './i18n';
+import LanguageSwitch from './components/LanguageSwitch'; 
+
 
 interface Task {
   id: number;
@@ -21,7 +25,7 @@ const initialRewards: Reward[] = [
   { name: "Movie Ticket", pointsRequired: 100 },
 ];
 
-const App: React.FC = () => {
+const App: React.FC = () => { 
   const [tasks, setTasks] = useState<Task[]>([]);
   const [newTask, setNewTask] = useState<string>("");
   const [taskPoints, setTaskPoints] = useState<number>(1);
@@ -32,13 +36,19 @@ const App: React.FC = () => {
   const [newRewardName, setNewRewardName] = useState<string>("");
   const [newRewardPoints, setNewRewardPoints] = useState<number>(1);
   const pointOptions = [1, 2, 5, 10, 25, 50, 100];
+  const { t, i18n } = useTranslation();
 
+  const switchLanguage = (lang: string) => {
+    i18n.changeLanguage(lang);
+    localStorage.setItem("language", lang);
+  };
 
   useEffect(() => {
     const storedTasks = localStorage.getItem("tasks");
     const storedRewards = localStorage.getItem("rewards");
     const storedPoints = localStorage.getItem("totalPoints");
     const storedRedeemedRewards = localStorage.getItem("redeemedRewards");
+    const savedLang = localStorage.getItem("language");
 
     if (storedTasks) {
       setTasks(JSON.parse(storedTasks));
@@ -56,6 +66,10 @@ const App: React.FC = () => {
 
     if (storedRedeemedRewards) {
       setRedeemedRewards(JSON.parse(storedRedeemedRewards));
+    }
+
+    if (savedLang) {
+      i18n.changeLanguage(savedLang);
     }
   }, []);
 
@@ -135,13 +149,13 @@ const App: React.FC = () => {
       <div className="main">
         <DotNavigation>
           <div className="section">
-            <h3>Your rewards:</h3>
+            <h3>{t('yourRewardsTitle')}:</h3>
             <input
               type="text"
               value={newRewardName}
               onChange={(e) => setNewRewardName(e.target.value)}
-              placeholder="New reward"
               onKeyDown={(e) => handleKeyPress(e, addReward)}
+              placeholder={t('rewardPlaceholder')}
             />
             <Select
               value={newRewardPoints}
@@ -150,13 +164,13 @@ const App: React.FC = () => {
               testId="reward-points-select"
             />
 
-            <button onClick={addReward}>Add Reward</button>
+            <button onClick={addReward}>{t('addReward')}</button>
             <ul>
               {rewards.map((reward) => (
                 <li key={reward.name}>
                   <span>
                   <div>{reward.name}</div>
-                  <small>{reward.pointsRequired} points</small>
+                  <small>{reward.pointsRequired} {t('points')}</small>
                   </span>
                   <div className="button-container">
                     <button
@@ -164,7 +178,7 @@ const App: React.FC = () => {
                       onClick={() => redeemReward(reward)}
                       disabled={totalPoints < reward.pointsRequired}
                     >
-                      Redeem
+                      {t('redeem')}
                     </button>
                     <button
                       className="complete-btn remove-btn"
@@ -179,21 +193,21 @@ const App: React.FC = () => {
           </div>
 
           <div className="section">
-            <h3>Daily plan:</h3>
+            <h3>{t('dailyPlan')}:</h3>
             <input
               type="text"
               value={newTask}
               onChange={(e) => setNewTask(e.target.value)}
               onKeyDown={(e) => handleKeyPress(e, addTask)}
-              placeholder="New task"
+              placeholder={t('taskPlaceholder')}
             />
             <Select
                     value={taskPoints}
                     onChange={setTaskPoints}
                     options={pointOptions}
             />
-            <button onClick={addTask}>Add Task</button>
-            <h2>Total Points: {totalPoints}</h2>
+            <button onClick={addTask}>{t('addTask')}</button>
+            <h2>{t('totalPoints')}: {totalPoints}</h2>
 
             <ul>
               {tasks.map((task) => (
@@ -209,7 +223,7 @@ const App: React.FC = () => {
                   <span>
                     {task.title}
                     <br />
-                    <small>{task.points} points</small>
+                    <small>{task.points} {t('points')}</small>
                   </span>
                   {!task.completed && (
                     <div className="button-container">
@@ -232,16 +246,19 @@ const App: React.FC = () => {
             </ul>
           </div>
           <div className="section">
-            <h3>Redeemed Rewards:</h3>
+            <h3>{t('redeemedRewards')}:</h3>
             <ul>
               {redeemedRewards.length > 0 ? (
                 redeemedRewards.map((reward, index) => (
                   <li key={index}>🏆 - {reward} </li>
                 ))
               ) : (
-                <li>No rewards redeemed yet</li>
+                <li>{t('noRewards')}</li>
               )}
             </ul>
+          </div>  
+          <div className="section">
+            <LanguageSwitch switchLanguage={switchLanguage} />
           </div>
         </DotNavigation>
       </div>

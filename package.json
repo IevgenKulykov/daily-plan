@@ -8,11 +8,12 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.112",
     "@types/react": "^18.3.10",
     "@types/react-dom": "^18.3.0",
+    "i18next": "^23.16.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-i18next": "^15.1.1",
     "react-responsive-carousel": "^3.2.23",
     "react-scripts": "5.0.1",
     "react-swipeable": "^7.0.2",
@@ -47,6 +48,7 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@types/node": "^22.9.0",
     "gh-pages": "^6.2.0"
   }
 }
