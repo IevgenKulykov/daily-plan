@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import DotNavigation from "./components/DotNavigation";
+import Select from "./components/Select";
 
 interface Task {
   id: number;
@@ -30,6 +31,8 @@ const App: React.FC = () => {
   const [rewards, setRewards] = useState<Reward[]>(initialRewards);
   const [newRewardName, setNewRewardName] = useState<string>("");
   const [newRewardPoints, setNewRewardPoints] = useState<number>(1);
+  const pointOptions = [1, 2, 5, 10, 25, 50, 100];
+
 
   useEffect(() => {
     const storedTasks = localStorage.getItem("tasks");
@@ -138,19 +141,12 @@ const App: React.FC = () => {
               placeholder="New reward"
               onKeyDown={(e) => handleKeyPress(e, addReward)}
             />
-            <select
+            <Select
               value={newRewardPoints}
-              onChange={(e) => setNewRewardPoints(Number(e.target.value))}
-              data-testid="reward-points-select"
-            >
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="5">5</option>
-              <option value="10">10</option>
-              <option value="25">25</option>
-              <option value="50">50</option>
-              <option value="100">100</option>
-            </select>
+              onChange={setNewRewardPoints}
+              options={pointOptions}
+              testId="reward-points-select"
+            />
 
             <button onClick={addReward}>Add Reward</button>
             <ul className="rewards">
@@ -186,18 +182,11 @@ const App: React.FC = () => {
               onKeyDown={(e) => handleKeyPress(e, addTask)}
               placeholder="New task"
             />
-            <select
-              value={taskPoints}
-              onChange={(e) => setTaskPoints(Number(e.target.value))}
-            >
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="5">5</option>
-              <option value="10">10</option>
-              <option value="25">25</option>
-              <option value="50">50</option>
-              <option value="100">100</option>
-            </select>
+            <Select
+                    value={taskPoints}
+                    onChange={setTaskPoints}
+                    options={pointOptions}
+            />
             <button onClick={addTask}>Add Task</button>
             <h2>Total Points: {totalPoints}</h2>
 
