@@ -3,17 +3,9 @@ import "./App.css";
 import DotNavigation from "./components/DotNavigation";
 import Select from "./components/Select";
 import { useTranslation } from 'react-i18next';
-import i18n from './i18n';
 import LanguageSwitch from './components/LanguageSwitch'; 
 import ListCleanup from "./components/ListCleanup";
-
-
-interface Task {
-  id: number;
-  title: string;
-  completed: boolean;
-  points: number;
-}
+import { Task, TaskType, addTask, completeTask, removeTask } from './components/task';
 
 interface Reward {
   name: string;
@@ -26,8 +18,8 @@ const initialRewards: Reward[] = [
   { name: "Movie Ticket", pointsRequired: 100 },
 ];
 
-const App: React.FC = () => { 
-  const [tasks, setTasks] = useState<Task[]>([]);
+const App: React.FC = () => {
+  const [tasks, setTasks] = useState<TaskType[]>([]);
   const [newTask, setNewTask] = useState<string>("");
   const [taskPoints, setTaskPoints] = useState<number>(1);
   const [totalPoints, setTotalPoints] = useState<number>(0);
@@ -72,7 +64,7 @@ const App: React.FC = () => {
     if (savedLang) {
       i18n.changeLanguage(savedLang);
     }
-  }, []);
+  }, [i18n]);
 
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -80,38 +72,6 @@ const App: React.FC = () => {
     localStorage.setItem("totalPoints", totalPoints.toString());
     localStorage.setItem("redeemedRewards", JSON.stringify(redeemedRewards));
   }, [tasks, rewards, totalPoints, redeemedRewards]);
-
-  const addTask = () => {
-    if (newTask.trim() !== "" && taskPoints > 0) {
-      const task: Task = {
-        id: tasks.length + 1,
-        title: newTask,
-        completed: false,
-        points: taskPoints,
-      };
-      setTasks([...tasks, task]);
-      setNewTask("");
-      setTaskPoints(1);
-    }
-  };
-
-  const completeTask = (id: number) => {
-    const updatedTasks = tasks.map((task) => {
-      if (task.id === id) {
-        task.completed = true;
-        setTotalPoints(totalPoints + task.points);
-      }
-      return task;
-    });
-    const sortedTasks = updatedTasks.sort((a, b) => (a.completed === b.completed ? 0 : a.completed ? 1 : -1));
-
-    setTasks(sortedTasks);
-  };
-
-  const removeTask = (id: number) => {
-    const updatedTasks = tasks.filter((task) => task.id !== id);
-    setTasks(updatedTasks);
-  };
 
   const redeemReward = (reward: Reward) => {
     if (totalPoints >= reward.pointsRequired) {
@@ -154,6 +114,10 @@ const App: React.FC = () => {
     setRedeemedRewards([]);
   };
 
+  const handleAddTask = () => {
+    addTask(tasks, setTasks, newTask, setNewTask, taskPoints, setTaskPoints);
+  };
+
   return (
     <div className="App" style={{ display: "flex" }}>
       <div className="main">
@@ -179,8 +143,8 @@ const App: React.FC = () => {
               {rewards.map((reward) => (
                 <li key={reward.name}>
                   <span>
-                  <div>{reward.name}</div>
-                  <small>{reward.pointsRequired} {t('points')}</small>
+                    <div>{reward.name}</div>
+                    <small>{reward.pointsRequired} {t('points')}</small>
                   </span>
                   <div className="button-container">
                     <button
@@ -208,50 +172,29 @@ const App: React.FC = () => {
               type="text"
               value={newTask}
               onChange={(e) => setNewTask(e.target.value)}
-              onKeyDown={(e) => handleKeyPress(e, addTask)}
+              onKeyDown={(e) => handleKeyPress(e, handleAddTask)}
               placeholder={t('taskPlaceholder')}
             />
             <Select
-                    value={taskPoints}
-                    onChange={setTaskPoints}
-                    options={pointOptions}
+              value={taskPoints}
+              onChange={setTaskPoints}
+              options={pointOptions}
             />
-            <button onClick={addTask}>{t('addTask')}</button>
+            <button onClick={() =>addTask(tasks, setTasks, newTask, setNewTask, taskPoints, setTaskPoints)}>{t('addTask')}</button>      
             <h2>{t('totalPoints')}: {totalPoints}</h2>
 
             <ul>
               {tasks.map((task) => (
-                <li
+                <Task
                   key={task.id}
-                  style={{
-                    textDecoration: task.completed ? "line-through" : "none",
-                    display: "flex", 
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                  }}
-                >
-                  <span>
-                    {task.title}
-                    <br />
-                    <small>{task.points} {t('points')}</small>
-                  </span>
-                  {!task.completed && (
-                    <div className="button-container">
-                      <button
-                        className="task-btn remove-btn"
-                        onClick={() => completeTask(task.id)}
-                      >
-                        ✓
-                      </button>
-                      <button
-                        className="complete-btn remove-btn"
-                        onClick={() => removeTask(task.id)}
-                      >
-                        x
-                      </button>
-                    </div>
-                  )}
-                </li>
+                  id={task.id}
+                  title={task.title}
+                  points={task.points}
+                  completed={task.completed}
+                  completeTask={()=>completeTask(tasks, setTasks, task.id, totalPoints, setTotalPoints)}
+                  removeTask={() => removeTask(tasks, setTasks, task.id)}
+                  t={t}
+                />
               ))}
             </ul>
           </div>

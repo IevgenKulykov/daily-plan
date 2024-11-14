@@ -149,22 +149,6 @@ select:focus {
   justify-content: flex-end;
 }
 
-.task-btn {
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 14px;
-  cursor: pointer;
-  width: auto;
-  min-width: unset;
-  transition: background-color 0.3s ease;
-}
-
-.task-btn:hover {
-  background-color: #45a049;
-}
 
 .settings-btn-container {
   display: flex;
