@@ -122,51 +122,7 @@ const App: React.FC = () => {
     <div className="App" style={{ display: "flex" }}>
       <div className="main">
         <DotNavigation>
-          <div className="section">
-            <h3>{t('yourRewardsTitle')}:</h3>
-            <input
-              type="text"
-              value={newRewardName}
-              onChange={(e) => setNewRewardName(e.target.value)}
-              onKeyDown={(e) => handleKeyPress(e, addReward)}
-              placeholder={t('rewardPlaceholder')}
-            />
-            <Select
-              value={newRewardPoints}
-              onChange={setNewRewardPoints}
-              options={pointOptions}
-              testId="reward-points-select"
-            />
-
-            <button onClick={addReward}>{t('addReward')}</button>
-            <ul>
-              {rewards.map((reward) => (
-                <li key={reward.name}>
-                  <span>
-                    <div>{reward.name}</div>
-                    <small>{reward.pointsRequired} {t('points')}</small>
-                  </span>
-                  <div className="button-container">
-                    <button
-                      className="reward-btn"
-                      onClick={() => redeemReward(reward)}
-                      disabled={totalPoints < reward.pointsRequired}
-                    >
-                      {t('redeem')}
-                    </button>
-                    <button
-                      className="complete-btn remove-btn"
-                      onClick={() => removeReward(reward.name)}
-                    >
-                      &times;
-                    </button>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="section">
+        <div className="section">
             <h3>{t('dailyPlan')}:</h3>
             <input
               type="text"
@@ -198,6 +154,51 @@ const App: React.FC = () => {
               ))}
             </ul>
           </div>
+
+          <div className="section">
+            <h3>{t('yourRewardsTitle')}:</h3>
+            <input
+              type="text"
+              value={newRewardName}
+              onChange={(e) => setNewRewardName(e.target.value)}
+              onKeyDown={(e) => handleKeyPress(e, addReward)}
+              placeholder={t('rewardPlaceholder')}
+            />
+            <Select
+              value={newRewardPoints}
+              onChange={setNewRewardPoints}
+              options={pointOptions}
+              testId="reward-points-select"
+            />
+            <button onClick={addReward}>{t('addReward')}</button>
+            <ul>
+              {rewards.map((reward) => (
+                <li key={reward.name}>
+                  <span>
+                    <div>{reward.name}</div>
+                    <small>{reward.pointsRequired} {t('points')}</small>
+                  </span>
+                  <div className="button-container">
+                    <button
+                      className="reward-btn"
+                      onClick={() => redeemReward(reward)}
+                      disabled={totalPoints < reward.pointsRequired}
+                    >
+                      {t('redeem')}
+                    </button>
+                    <button
+                      className="complete-btn remove-btn"
+                      onClick={() => removeReward(reward.name)}
+                    >
+                      &times;
+                    </button>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          
           <div className="section">
             <h3>{t('redeemedRewards')}:</h3>
             <ul>
