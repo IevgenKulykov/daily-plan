@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import DotNavigation from "./components/DotNavigation";
-import Select from "./components/Select";
 import { useTranslation } from 'react-i18next';
 import LanguageSwitch from './components/LanguageSwitch'; 
 import ListCleanup from "./components/ListCleanup";
@@ -9,8 +8,6 @@ import { Task, TaskType, addTask, completeTask, removeTask } from './components/
 import NewTask from "./components/new-task/NewTask";
 import NewReward from "./components/new-reward/NewReward";
 import { Reward, RewardType, addReward, removeReward } from './components/reward';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import ShareHandler from "./components/share/ShareHandler";
 
 
 const initialRewards: RewardType[] = [
