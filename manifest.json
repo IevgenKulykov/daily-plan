@@ -21,14 +21,5 @@
   ],
   "display": "standalone",
   "theme_color": "#000000",
-  "background_color": "#ffffff",
-  "share_target": {
-    "action": "/share",
-    "method": "POST",
-    "enctype": "application/x-www-form-urlencoded",
-    "params": {
-      "title": "title",
-      "text": "text"
-    }
-  }
+  "background_color": "#ffffff"
 }
