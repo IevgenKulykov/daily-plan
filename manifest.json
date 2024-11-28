@@ -1,6 +1,7 @@
 {
   "short_name": "Daily plan",
   "name": "Daily plan",
+  "start_url": "/",
   "icons": [
     {
       "src": "favicon.ico",
@@ -18,17 +19,7 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
-  "background_color": "#ffffff",
-  "share_target": {
-    "action": "/share",
-    "method": "POST",
-    "enctype": "application/x-www-form-urlencoded",
-    "params": {
-      "title": "title",
-      "text": "text"
-    }
-  }
+  "background_color": "#ffffff"
 }
