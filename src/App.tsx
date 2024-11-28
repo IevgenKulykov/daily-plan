@@ -9,6 +9,9 @@ import { Task, TaskType, addTask, completeTask, removeTask } from './components/
 import NewTask from "./components/new-task/NewTask";
 import NewReward from "./components/new-reward/NewReward";
 import { Reward, RewardType, addReward, removeReward } from './components/reward';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import ShareHandler from "./components/share/ShareHandler";
+
 
 const initialRewards: RewardType[] = [
   { name: "Coffee", pointsRequired: 10 },
@@ -109,6 +112,7 @@ const App: React.FC = () => {
   };
 
   return (
+    <Router>
     <div className="App" style={{ display: "flex" }}>
       <div className="main">
         <DotNavigation>
@@ -186,6 +190,10 @@ const App: React.FC = () => {
         </DotNavigation>
       </div>
     </div>
+            <Routes>
+                <Route path="/share" element={<ShareHandler />} />
+            </Routes>
+    </Router>
   );
 };
 
