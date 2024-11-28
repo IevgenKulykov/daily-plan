@@ -112,7 +112,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <Router>
+    // <Router>
     <div className="App" style={{ display: "flex" }}>
       <div className="main">
         <DotNavigation>
@@ -190,10 +190,10 @@ const App: React.FC = () => {
         </DotNavigation>
       </div>
     </div>
-            <Routes>
-                <Route path="/share" element={<ShareHandler />} />
-            </Routes>
-    </Router>
+    //         <Routes>
+    //             <Route path="/share" element={<ShareHandler />} />
+    //         </Routes>
+    // </Router>
   );
 };
 
