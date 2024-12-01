@@ -106,10 +106,10 @@ const App: React.FC = () => {
 
   const handleAddTask = () => {
     addTask(tasks, setTasks, newTask, setNewTask, taskPoints, setTaskPoints);
+    setNewTask("");
   };
 
   return (
-    // <Router>
     <div className="App" style={{ display: "flex" }}>
       <div className="main">
         <DotNavigation>
@@ -187,10 +187,6 @@ const App: React.FC = () => {
         </DotNavigation>
       </div>
     </div>
-    //         <Routes>
-    //             <Route path="/share" element={<ShareHandler />} />
-    //         </Routes>
-    // </Router>
   );
 };
 
