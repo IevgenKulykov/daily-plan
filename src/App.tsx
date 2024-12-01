@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
 import DotNavigation from "./components/DotNavigation";
 import { useTranslation } from 'react-i18next';
@@ -8,7 +8,6 @@ import { Task, TaskType, addTask, completeTask, removeTask } from './components/
 import NewTask from "./components/new-task/NewTask";
 import NewReward from "./components/new-reward/NewReward";
 import { Reward, RewardType, addReward, removeReward } from './components/reward';
-
 
 const initialRewards: RewardType[] = [
   { name: "Coffee", pointsRequired: 10 },
