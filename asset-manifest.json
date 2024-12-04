@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/$REACT_APP_HOMEPAGE/static/css/main.c4c3a878.css",
-    "main.js": "/$REACT_APP_HOMEPAGE/static/js/main.a0c6e7ea.js",
-    "static/js/453.ac79db8d.chunk.js": "/$REACT_APP_HOMEPAGE/static/js/453.ac79db8d.chunk.js",
-    "index.html": "/$REACT_APP_HOMEPAGE/index.html",
-    "main.c4c3a878.css.map": "/$REACT_APP_HOMEPAGE/static/css/main.c4c3a878.css.map",
-    "main.a0c6e7ea.js.map": "/$REACT_APP_HOMEPAGE/static/js/main.a0c6e7ea.js.map",
-    "453.ac79db8d.chunk.js.map": "/$REACT_APP_HOMEPAGE/static/js/453.ac79db8d.chunk.js.map"
+    "main.css": "/daily-plan/static/css/main.c4c3a878.css",
+    "main.js": "/daily-plan/static/js/main.ae02a425.js",
+    "static/js/453.ac79db8d.chunk.js": "/daily-plan/static/js/453.ac79db8d.chunk.js",
+    "index.html": "/daily-plan/index.html",
+    "main.c4c3a878.css.map": "/daily-plan/static/css/main.c4c3a878.css.map",
+    "main.ae02a425.js.map": "/daily-plan/static/js/main.ae02a425.js.map",
+    "453.ac79db8d.chunk.js.map": "/daily-plan/static/js/453.ac79db8d.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.c4c3a878.css",
-    "static/js/main.a0c6e7ea.js"
+    "static/js/main.ae02a425.js"
   ]
 }
